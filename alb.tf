@@ -1,21 +1,21 @@
 resource "aws_lb" "alb" {
-    internal           = false
-    load_balancer_type = "application"
-    security_groups    = [
-      aws_security_group.SG-for-ALB.id
-    ]
-    subnets            = [
-      aws_subnet.subnet1.id, 
-      aws_subnet.subnet2.id
-      ]
-    
-    enable_deletion_protection = true
+  internal           = false
+  load_balancer_type = "application"
+  security_groups = [
+    aws_security_group.SG-for-ALB.id
+  ]
+  subnets = [
+    aws_subnet.subnet1_pub.id,
+    aws_subnet.subnet2_pub.id
+  ]
 
-    tags = {
-      name        = "prod-appname-alb-us-east-2"
-      Application = "app name"
-      Environment = ""
-    }
+  enable_deletion_protection = true
+
+  tags = {
+    name        = "prod-appname-alb-us-east-2"
+    Application = "app name"
+    Environment = ""
+  }
 }
 
 resource "aws_lb_target_group" "ecs_tg" {
