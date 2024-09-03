@@ -1,5 +1,9 @@
+module "network" {
+  source = "../network"
+}
+
 resource "aws_ecs_service" "ecs_service" {
-  name            = "environment_service"
+  name            = "staging_service"
   cluster         = aws_ecs_cluster.ecs_cluster.id
   task_definition = aws_ecs_task_definition.ecs_task_definition.arn
   desired_count   = 2
@@ -11,8 +15,8 @@ resource "aws_ecs_service" "ecs_service" {
 
   network_configuration {
     subnets = [
-      aws_subnet.subnet1_pvt.id,
-      aws_subnet.subnet2_pvt.id
+      module.network.aws_subnet.subnet1_pvt.id,
+      module.network.aws_subnet.subnet2_pvt.id
     ]
     security_groups = [
       aws_security_group.SG-for-ECS.id

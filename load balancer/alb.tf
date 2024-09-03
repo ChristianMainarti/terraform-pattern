@@ -1,28 +1,38 @@
+module "network" {
+  source = "../network"
+}
+
 resource "aws_lb" "alb" {
-  internal           = false
+  internal           = true
   load_balancer_type = "application"
   security_groups = [
     aws_security_group.SG-for-ALB.id
   ]
   subnets = [
-    aws_subnet.subnet1_pub.id,
-    aws_subnet.subnet2_pub.id
+    module.network.aws_subnet.subnet1_pub,
+    module.network.aws_subnet.subnet2_pub.id
   ]
 
   enable_deletion_protection = true
 
   tags = {
-    name        = "prod-appname-alb-us-east-2"
+    name        = "staging-appname-alb-us-east-2"
     Application = "app name"
     Environment = ""
   }
 }
 
+resource "aws_api_gateway_vpc_link" "vpc_link" {
+  name        = "appname-staging"
+  description = "api gateway for app name"
+  target_arns = [aws_lb.alb.arn]
+}
+
 resource "aws_lb_target_group" "ecs_tg" {
-  name     = "prod"
+  name     = "staging"
   port     = 3333
   protocol = "HTTP"
-  vpc_id   = aws_vpc.prod-vpc.id
+  vpc_id   = aws_vpc.staging-vpc.id
 
   health_check {
     path                = "/health-check"
