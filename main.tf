@@ -11,13 +11,13 @@ provider "aws" {
   region = "us-east-2"
 }
 
-terraform { 
-  cloud { 
-    
-    organization = "mainarti_dev" 
+terraform {
+  cloud {
 
-    workspaces { 
-      name = "api_pattern" 
-    } 
-  } 
+    organization = "mainarti_dev"
+
+    workspaces {
+      name = "api_pattern"
+    }
+  }
 }
