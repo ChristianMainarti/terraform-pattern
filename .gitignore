@@ -1,5 +1,4 @@
 .gitignore
 .terraform
 plan
-variables.tf
 terraform.tfvars

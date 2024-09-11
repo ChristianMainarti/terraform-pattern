@@ -1,6 +1,6 @@
 resource "aws_network_interface" "eni_pvt_subnet_1" {
-  subnet_id       = aws_subnet.subnet1_pvt
-  private_ips     = ["10.0.2.11"]
+  subnet_id       = aws_subnet.subnet1_pvt.id
+  private_ips     = ["10.118.128.45"]
   security_groups = [aws_security_group.SG-for-ALB.id]
 
   tags = {
@@ -11,8 +11,8 @@ resource "aws_network_interface" "eni_pvt_subnet_1" {
 }
 
 resource "aws_network_interface" "eni_pvt_subnet_2" {
-  subnet_id       = aws_subnet.subnet1_pvt
-  private_ips     = ["10.0.2.24"]
+  subnet_id       = aws_subnet.subnet1_pvt.id
+  private_ips     = ["10.118.128.83"]  # Corrigido para um IP válido em subnet1_pvt
   security_groups = [aws_security_group.SG-for-ECS.id]
 
   tags = {
@@ -23,8 +23,8 @@ resource "aws_network_interface" "eni_pvt_subnet_2" {
 }
 
 resource "aws_network_interface" "eni_pvt_subnet_3" {
-  subnet_id       = aws_subnet.subnet1_pvt
-  private_ips     = ["10.0.2.67"]
+  subnet_id       = aws_subnet.subnet1_pvt.id
+  private_ips     = ["10.118.128.34"]
   security_groups = [aws_security_group.SG-for-vpc_link.id]
 
   tags = {
@@ -35,8 +35,8 @@ resource "aws_network_interface" "eni_pvt_subnet_3" {
 }
 
 resource "aws_network_interface" "eni_pvt_subnet2_1" {
-  subnet_id       = aws_subnet.subnet2_pvt
-  private_ips     = ["10.0.3.32"]
+  subnet_id       = aws_subnet.subnet2_pvt.id
+  private_ips     = ["10.118.135.72"]
   security_groups = [aws_security_group.SG-for-ALB.id]
 
   tags = {
@@ -46,9 +46,9 @@ resource "aws_network_interface" "eni_pvt_subnet2_1" {
   }
 }
 
-resource "aws_network_interface" "eni_pvt_subnet2_1" {
-  subnet_id       = aws_subnet.subnet2_pvt
-  private_ips     = ["10.0.3.68"]
+resource "aws_network_interface" "eni_pvt_subnet2_2" {
+  subnet_id       = aws_subnet.subnet2_pvt.id
+  private_ips     = ["10.118.135.113"]
   security_groups = [aws_security_group.SG-for-ECS.id]
 
   tags = {
@@ -58,9 +58,9 @@ resource "aws_network_interface" "eni_pvt_subnet2_1" {
   }
 }
 
-resource "aws_network_interface" "eni_pvt_subnet_3" {
-  subnet_id       = aws_subnet.subnet2_pvt
-  private_ips     = ["10.0.3.91"]
+resource "aws_network_interface" "eni_pvt_subnet2_3" {
+  subnet_id       = aws_subnet.subnet2_pvt.id
+  private_ips     = ["10.118.135.66"]
   security_groups = [aws_security_group.SG-for-vpc_link.id]
 
   tags = {

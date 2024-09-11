@@ -1,7 +1,3 @@
-module "network" {
-  source = "../network"
-}
-
 resource "aws_lb" "alb" {
   internal           = true
   load_balancer_type = "application"
@@ -9,17 +5,18 @@ resource "aws_lb" "alb" {
     aws_security_group.SG-for-ALB.id
   ]
   subnets = [
-    module.network.aws_subnet.subnet1_pub,
-    module.network.aws_subnet.subnet2_pub.id
+    aws_subnet.subnet1_pvt.id,
+    aws_subnet.subnet2_pvt.id
   ]
 
   enable_deletion_protection = true
 
   tags = {
-    name        = "staging-appname-alb-us-east-2"
+    name        = "staging-appname-alb-us-east-1"
     Application = "app name"
-    Environment = ""
+    Environment = "Staging"
   }
+  
 }
 
 resource "aws_api_gateway_vpc_link" "vpc_link" {
